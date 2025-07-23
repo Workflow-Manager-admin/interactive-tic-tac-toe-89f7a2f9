@@ -4,10 +4,20 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --text-primary: #282c34;
-  --text-secondary: #61dafb;
+  --text-secondary: #888888;
   --border-color: #e9ecef;
-  --button-bg: #007bff;
+  --button-bg: #2196F3;
   --button-text: #ffffff;
+  /* Required palette */
+  --color-accent: #FFC107;
+  --color-primary: #2196F3;
+  --color-secondary: #F44336;
+  --color-player-x: #2196F3;
+  --color-player-o: #F44336;
+  --color-board-bg: #f8f9fa;
+  --color-square-bg: #fff;
+  --color-square-hover: #F5F5F5;
+  --color-square-highlight: #FFC107;
 }
 
 [data-theme="dark"] {
@@ -84,21 +94,166 @@
   transform: translateY(0);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* TIC TAC TOE APP STYLES */
+
+.ttt-app {
+  background: var(--bg-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+.ttt-container {
+  background: var(--color-board-bg);
+  box-shadow: 0 4px 24px rgba(33,150,243,0.07), 0 1.5px 4px 0 rgba(0,0,0,0.10);
+  border-radius: 20px;
+  padding: 32px 24px 16px 24px;
+  min-width: 310px;
+  max-width: 390px;
+  width: 100vw;
+  min-height: 500px;
+  box-sizing: border-box;
+  margin: 32px 8px 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ttt-header {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.ttt-status {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 10px 0 16px 0;
+  letter-spacing: 1px;
+}
+.ttt-status .turn {
+  font-weight: 700;
+  font-size: 1.13em;
+}
+.ttt-status .winner {
+  font-weight: 700;
+  font-size: 1.34em;
+  padding: 0 2px;
+}
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 66px);
+  grid-template-rows: repeat(3, 66px);
+  gap: 8px;
+  background: var(--color-board-bg);
+  padding: 12px;
+  border-radius: 18px;
+  box-shadow: 0 3px 14px 0 rgba(33,150,243,0.09);
+  margin-bottom: 24px;
+}
+
+.ttt-square {
+  width: 66px;
+  height: 66px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: var(--color-square-bg);
+  color: var(--text-primary);
+  border: 2.2px solid var(--border-color);
+  border-radius: 15px;
+  cursor: pointer;
+  outline: none;
+  transition: background .15s, border-color .15s, box-shadow .15s, color .12s;
+  box-shadow: 0 2px 7px rgba(33,150,243, .08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+.ttt-square:hover:not(:disabled) {
+  background: var(--color-square-hover);
+  border-color: var(--color-accent);
+  z-index: 1;
+}
+.ttt-square:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.ttt-square.highlight {
+  background: var(--color-accent);
+  color: var(--color-secondary);
+  border-color: var(--color-accent);
+}
+
+.ttt-controls {
+  margin-top: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.ttt-btn {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 1.03rem;
+  border-radius: 7px;
+  padding: 9px 22px;
+  margin: 0 8px;
+  box-shadow: 0 1.5px 6px rgba(33,150,243,0.07);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.18s, transform 0.13s;
+  letter-spacing: .6px;
+}
+.ttt-btn:hover,
+.ttt-btn:focus {
+  background-color: var(--color-accent);
+  color: #333;
+  outline: 2px solid var(--color-primary);
+  transform: translateY(-1.5px) scale(1.038);
+}
+.ttt-btn:active {
+  background-color: #FFC107b8;
+  color: #111;
+  transform: translateY(0) scale(0.98);
+}
+
+.ttt-footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  opacity: .88;
+  letter-spacing: .03em;
+}
+
+@media (max-width: 540px) {
+  .ttt-board {
+    grid-template-columns: repeat(3, 54px);
+    grid-template-rows: repeat(3, 54px);
+    padding: 6px;
+    gap: 5px;
+  }
+  .ttt-square {
+    width: 54px;
+    height: 54px;
+    font-size: 1.52rem;
+    border-radius: 8px;
+  }
+  .ttt-container {
+    padding: 17px 2vw 10px 2vw;
+    margin: 15px 1.5vw;
+    min-width: unset;
+    max-width: 100vw;
+    min-height: 340px;
+    border-radius: 13px;
   }
 }
